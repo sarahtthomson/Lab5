@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', init);
 
 function init() {
   const selectElement = document.querySelector('#horn-select');
+  var partyHorn = 0;
 
   selectElement.addEventListener('change', (event) => {
     const image = document.querySelector("img");
@@ -13,6 +14,13 @@ function init() {
     const audio = document.querySelector(".hidden");
     console.log(`${event.target.value}`)
     audio.src = `assets/audio/${event.target.value}.mp3`;
+
+    if(event.target.value == 'party-horn') {
+      partyHorn = 1;
+    }
+    else {
+      partyHorn = 0;
+    }
   });
   
   const audioLevel = document.querySelector('#volume');
@@ -42,5 +50,21 @@ function init() {
       audioImg.src = 'assets/icons/volume-level-3.svg';
     }
   }
+
+  const playSound = document.querySelector('button');
+  const audio = document.querySelector(".hidden");
+  const image = document.querySelector("img");
+  const jsConfetti = new JSConfetti();
+
+  playSound.addEventListener('click', (event)=> {
+    audio.play();
+
+    console.log(image.src);
+
+    if(partyHorn == 1) {
+      console.log('here');
+      jsConfetti.addConfetti();
+    }
+  });
   
 }
